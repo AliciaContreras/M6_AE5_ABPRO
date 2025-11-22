@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+    <h1>Próximos Eventos</h1>
+    <ul>
+        {% for evento in eventos %}
+            <li>
+                <strong>{{ evento.titulo }}</strong> - {{ evento.fecha }}
+                <br>
+                Organizado por: {{ evento.organizador.username }}
+                <br>
+                <a href="{% url 'editar_evento' evento.pk %}">Editar</a> | 
+                <a href="{% url 'eliminar_evento' evento.pk %}">Eliminar</a>
+            </li>
+            <hr>
+        {% empty %}
+            <li>No hay eventos registrados.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

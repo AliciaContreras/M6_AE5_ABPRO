@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Eventos</title>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'listar_eventos' %}">Inicio</a>
+        {% if user.is_authenticated %}
+            <span>Hola, {{ user.username }} | </span>
+            <a href="{% url 'crear_evento' %}">Crear Evento</a> | 
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Cerrar Sesión</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Iniciar Sesión</a>
+        {% endif %}
+    </nav>
+    <hr>
+    <!-- Bloque para mostrar mensajes (éxito, error, etc.) -->
+{% if messages %}
+    <ul style="list-style: none; padding: 0;">
+        {% for message in messages %}
+            <li style="background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 10px; border: 1px solid #f5c6cb; border-radius: 4px;">
+                {{ message }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+    {% block contenido %}
+    {% endblock %}
+</body>
+</html>
